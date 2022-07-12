@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../controller/form_controller.dart';
 import '../context/data_context.dart';
-import '../context/database.dart';
 import 'package:mask/mask.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
@@ -13,7 +12,6 @@ class FormScreen extends StatelessWidget {
 
   final controller = FormController();
   final ctxt = Get.find<DataContext>();
-  final db = Get.find<DataBase>().db;
 
   @override
   Widget build(BuildContext context) {
@@ -444,7 +442,7 @@ class FormScreen extends StatelessWidget {
                                       onTap: () => controller.resetResolvidono1Error(),
                                       decoration: InputDecoration(
                                         border: const OutlineInputBorder(),
-                                        labelText: 'Resolvido no 1º contato?',
+                                        labelText: 'Resolvido no 1º Contato?',
                                         labelStyle: const TextStyle(
                                           fontSize: 18
                                         ),
@@ -610,7 +608,7 @@ class FormScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10,  right: 10),
                                   child: ElevatedButton(
-                                    onPressed: () => controller.send(db, ctxt.user,
+                                    onPressed: () => controller.send(ctxt.user,
                                     ctxt.destinoAtendimento.where((element) => element['name'] == controller.destinoAtendimento.value).toList().isNotEmpty ? 
                                     ctxt.destinoAtendimento.where((element) => element['name'] == controller.destinoAtendimento.value).toList()[0]['email'].toString(): '') , 
                                     child: const Padding(

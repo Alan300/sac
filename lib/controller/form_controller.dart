@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../screen/home_screen.dart';
 import '../screen/specific_screen.dart';
+import '../context/database.dart';
 import 'package:mysql_utils/mysql_utils.dart';
 import 'package:ntp/ntp.dart';
 
@@ -83,7 +84,7 @@ class FormController extends GetxController {
   void resetProcedenciaError() => procedenciaError.value = '';
   void resetDestinoAtendimentoError() => destinoAtendimentoError.value = ''; 
 
-  void send(MysqlUtils? db, Map<String,dynamic> user, String emailDestiny) async {
+  void send(Map<String,dynamic> user, String emailDestiny) async {
     loading.value = true;
     if(tipoCliente.value == '') {
       tipoClienteError.value = 'Selecione o tipo de cliente.';
@@ -209,7 +210,8 @@ class FormController extends GetxController {
         'destiny_name': destinoAtendimento.value,
         'destiny_email': emailDestiny 
       };
-      await db!.insert(
+      final  db = MysqlUtils(settings: DataBase.settings);
+      await db.insert(
         table: 'form', 
         insertData: obj
       ).then((value){
@@ -226,6 +228,7 @@ class FormController extends GetxController {
           ),
         );
       });
+      db.close();
     } else {
       isCheck.value = true;
     }

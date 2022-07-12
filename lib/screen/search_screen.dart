@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mask/mask.dart';
 import '../controller/search_controller.dart';
-import '../context/database.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
@@ -11,7 +9,6 @@ class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);
 
   final controller = SearchController();
-  final db = Get.find<DataBase>().db;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +83,7 @@ class SearchScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10,  right: 10),
                                   child: ElevatedButton(
-                                    onPressed: () => controller.searchForms(db), 
+                                    onPressed: () => controller.searchForms(), 
                                     child: const Padding(
                                       padding: EdgeInsets.only(top: 10, bottom: 10),
                                       child: Text(

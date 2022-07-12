@@ -385,7 +385,7 @@ class SpecificScreen extends StatelessWidget {
                                   ),
                                   decoration: const InputDecoration(  
                                     border: OutlineInputBorder(),
-                                    labelText: 'Resolvido no 1º contato?'
+                                    labelText: 'Resolvido no 1º Contato?'
                                   ),
                                 ),
                               ),
@@ -488,7 +488,7 @@ class SpecificScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {
                                   var texto = 'Protocol: ${form['protocol']}\n';
-                                  texto += 'responsável pelo cadastro: ${form['user_name']}\n';
+                                  texto += 'Responsável Pelo Cadastro: ${form['user_name']}\n';
                                   texto += 'Tipo de Cliente: ${tipoCliente.text}\n';
                                   texto += "Identificação do Cliente: ${idCliente.text}\n";
                                   texto += "Nome do Cliente: ${nomeCliente.text}\n";
@@ -506,10 +506,9 @@ class SpecificScreen extends StatelessWidget {
                                   }
                                   texto += "Tipo da Ocorrência: ${tipoDaOcorrencia.text}\n";
                                   texto += "Descrição da Ocorrência: ${descricaoDaOcorrencia.text}\n";
-                                  texto += "Resolvido no 1º contato: ${resolvidono1.text}\n";
+                                  texto += "Resolvido no 1º Contato: ${resolvidono1.text}\n";
                                   texto += "Situação: ${situacao.text}\n";
                                   texto += "Destino do Atendimento: ${destino.text}";
-                                  
                                   Clipboard.setData(
                                     ClipboardData(
                                       text: texto

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../context/database.dart';
 import '../context/data_context.dart';
 import '../controller/login_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,9 +10,6 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
   final controller = LoginController();
-
-  final databse = Get.find<DataBase>();
-
   
   final ctxt = Get.find<DataContext>();
 
@@ -113,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
                               child: ElevatedButton(
-                                onPressed: () => controller.logIn(databse.isConnect ?databse.db : null, ctxt.setData), 
+                                onPressed: () => controller.logIn(ctxt.setData), 
                                 child: const Padding(
                                   padding: EdgeInsets.only(top: 10, bottom: 10),
                                   child: Text(

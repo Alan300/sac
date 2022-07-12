@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../context/database.dart';
 import 'package:mysql_utils/mysql_utils.dart';
 import '../screen/list_screen.dart';
 
@@ -11,12 +12,14 @@ class SearchController extends GetxController{
 
   void resetSearchError() => searchError.value = '';
 
-  void searchForms(MysqlUtils? db) async{
+  void searchForms() async{
     if(search.text.length != 14 && search.text.length != 18) {
       searchError.value = 'Digite um cpf/cnpj válido.';
     } else {
       loading.value = true;
-      var result = await db!.query("select  * from form where client_id = '${search.text}'");
+      final db = MysqlUtils(settings: DataBase.settings);
+      var result = await db.query("select  * from form where client_id = '${search.text}'");
+      db.close();
       if(result.rows.isEmpty) {
         Get.defaultDialog(
           title: 'Atenção',
