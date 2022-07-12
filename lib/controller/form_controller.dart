@@ -229,7 +229,7 @@ class FormController extends GetxController {
           }
         );
         obj['protocol'] = value;
-        Get.offAll(SpecificScreen(obj, true));
+        await Get.offAll(SpecificScreen(obj, true));
         Get.defaultDialog(
           title: 'Sucesso',
           middleText: 'Ocorrência Cadastrada.\nProtocolo: $value',

@@ -32,7 +32,8 @@ class SearchController extends GetxController{
           ),
         );
       } else {
-        Get.to(ListScreen(result.rows));
+        await Get.to(ListScreen(result.rows));
+
         search.text = '';
       }
       loading.value = false;

@@ -51,7 +51,7 @@ class LoginController extends GetxController{
           }).toList()
         );
           db.close();
-          Get.offAll(HomeScreen());
+          await Get.offAll(HomeScreen());
         }
       loading.value = false;
     }
