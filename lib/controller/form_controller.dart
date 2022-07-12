@@ -214,7 +214,20 @@ class FormController extends GetxController {
       await db.insert(
         table: 'form', 
         insertData: obj
-      ).then((value){
+      ).then((value) async {
+        await db.insert(
+          table: 'log_form', 
+          insertData: {
+            'protocol': value,
+            'date_change': obj['opening_date'],
+            'user_name': obj['user_name'] ,
+            'occurrence_desc': obj['occurrence_desc'] ,
+            'solve_frist_contact': obj['solve_frist_contact']  ,
+            'situation': obj['situation']  ,
+            'technical_visit': obj['technical_visit']  , 
+            'origin': obj['origin']  
+          }
+        );
         obj['protocol'] = value;
         Get.offAll(SpecificScreen(obj, true));
         Get.defaultDialog(
