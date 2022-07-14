@@ -84,6 +84,7 @@ class LoginScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 10, bottom: 15),
                               child: TextField(
+                                onSubmitted: (_) => controller.logIn(ctxt.setData),
                                 onTap: () => controller.resetPassworError(),
                                 controller: controller.password,
                                 obscureText: controller.obscurePassword.value,

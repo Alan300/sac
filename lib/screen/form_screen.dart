@@ -103,7 +103,7 @@ class FormScreen extends StatelessWidget {
                                       ),
                                       decoration: InputDecoration(  
                                         border: const OutlineInputBorder(),
-                                        labelText: 'Identificação do Cliente',
+                                        labelText: 'CNPJ/CPF',
                                         errorText: controller.idClienteError.value == '' ? null : controller.idClienteError.value
                                       ),
                                     ),
@@ -123,7 +123,7 @@ class FormScreen extends StatelessWidget {
                                       ),
                                       decoration: InputDecoration(  
                                         border: const OutlineInputBorder(),
-                                        labelText: 'Nome do Cliente',
+                                        labelText: 'Razão Social',
                                         errorText: controller.nomeClienteError.value == '' ? null : controller.nomeClienteError.value
                                       ),
                                     ),

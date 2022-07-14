@@ -60,6 +60,7 @@ class SearchScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 10, bottom: 10),
                               child: TextField(
+                                onSubmitted: (_) => controller.searchForms(),
                                 onTap: () => controller.resetSearchError(),
                                 controller: controller.search,
                                 inputFormatters: [
@@ -70,7 +71,7 @@ class SearchScreen extends StatelessWidget {
                                 ),
                                 decoration: InputDecoration(  
                                   border: const OutlineInputBorder(),
-                                  labelText: 'ID Cliente',
+                                  labelText: 'CNPJ/CPF',
                                   prefixIcon: const Icon(
                                     Icons.search
                                   ),

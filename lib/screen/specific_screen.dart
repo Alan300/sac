@@ -129,7 +129,7 @@ class SpecificScreen extends StatelessWidget {
                                       ),
                                       decoration: const InputDecoration(  
                                         border: OutlineInputBorder(),
-                                        labelText: 'Identificação do Cliente'
+                                        labelText: 'CNPJ/CPF'
                                       ),
                                     ),
                                   ),
@@ -147,7 +147,7 @@ class SpecificScreen extends StatelessWidget {
                                       ),
                                       decoration: const InputDecoration(  
                                         border: OutlineInputBorder(),
-                                        labelText: 'Nome do Cliente'
+                                        labelText: 'Razão Social'
                                       ),
                                     ),
                                   ),
@@ -503,8 +503,8 @@ class SpecificScreen extends StatelessWidget {
                                       var texto = 'Protocol: ${form['protocol']}\n';
                                       texto += 'Responsável Pelo Cadastro: ${form['user_name']}\n';
                                       texto += 'Tipo de Cliente: ${tipoCliente.text}\n';
-                                      texto += "Identificação do Cliente: ${idCliente.text}\n";
-                                      texto += "Nome do Cliente: ${nomeCliente.text}\n";
+                                      texto += "CNPJ/CPF: ${idCliente.text}\n";
+                                      texto += "Razão Social: ${nomeCliente.text}\n";
                                       texto += "Endereço do Cliente: ${enderecoCliente.text}\n";
                                       texto += "Telefone Fixo: ${telefoneFixo.text}\n";
                                       texto += "Telefone Celular: ${telefoneCelular.text}\n";

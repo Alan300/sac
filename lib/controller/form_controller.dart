@@ -98,7 +98,7 @@ class FormController extends GetxController {
 
 
     if(nomeCliente.text.length < 5) {
-      nomeClienteError.value = 'Digite um nome válido.';
+      nomeClienteError.value = 'Digite uma razão social válida.';
       isCheck.value = false;
     }
 
