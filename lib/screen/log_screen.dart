@@ -1,14 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 
 
 class LogScreen extends StatelessWidget {
-  final dynamic listLog;
-  const LogScreen(this.listLog, {Key? key}) : super(key: key);
+  final List listLog;
+  final List<TableRow> listWidget = [];
+  LogScreen(this.listLog, {Key? key}) : super(key: key) {
+    listWidget.add(
+      TableRow(
+        children: [
+          'Data da Alteração',
+          'Responsável',
+          'Descrição da Ocorrência',
+          'Resolvido no 1º Contato',
+          'Situação',
+          'Visita Técnica',
+          'Procedência'
+        ].map((e){
+          return TableCell(
+            child: Text(
+              e,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          );
+        }).toList()
+        ),
+      );
+    for(var i in listLog) {
+      TableRow row = TableRow(
+        children: [
+          TableCell(
+            child: Text(
+              DateFormat('dd/MM/yyyy - hh:mm').format(DateTime.parse(i['date_change'])),
+              textAlign: TextAlign.center
+            )
+          ),
+          TableCell(
+            child: Text(
+              i['user_name'],
+              textAlign: TextAlign.center
+            )
+          ),
+          TableCell(
+            child: Text(
+              i['occurrence_desc'],
+              textAlign: TextAlign.center
+            )
+          ),
+          TableCell(
+            child: Text(
+              i['solve_frist_contact'],
+              textAlign: TextAlign.center
+            )
+          ),
+          TableCell(
+            child: Text(
+              i['situation'],
+              textAlign: TextAlign.center
+            )
+          ),
+          TableCell(
+            child: Text(
+              i['technical_visit'],
+              textAlign: TextAlign.center
+            )
+          ),
+          TableCell(
+            child: Text(
+              i['origin'],
+              textAlign: TextAlign.center
+            )
+          )
+        ]
+      );
+      listWidget.add(row);
+    }
+  }
+  
+  
+  
   @override
   Widget build(BuildContext context) {
-
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -49,84 +127,7 @@ class LogScreen extends StatelessWidget {
                               color: Color(0xFFDDDDDD),
                             ),
                           ),
-                          children: [
-                            TableRow(
-                              children: [
-                                'Data da Alteração',
-                                'Responsável',
-                                'Descrição da Ocorrência',
-                                'Resolvido no 1º Contato',
-                                'Situação',
-                                'Visita Técnica',
-                                'Procedência'
-                              ].map((e){
-                                return TableCell(
-                                  child: Text(
-                                    e,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold
-                                    ),
-                                  )
-                                );
-                              }).toList()
-                            ),
-                            TableRow(
-                              children: [
-                                'Data da Alteração',
-                                'Responsável',
-                                'Descrição da Ocorrência',
-                                'Resolvido no 1º Contato',
-                                'Situação',
-                                'Visita Técnica',
-                                'Procedência'
-                              ].map((e){
-                                return TableCell(
-                                  child: Text(
-                                    e,
-                                    textAlign: TextAlign.center
-                                  )
-                                );
-                              }).toList()
-                            ),
-                            TableRow(
-                              children: [
-                                'Data da Alteração',
-                                'Responsável',
-                                'Descrição da Ocorrência',
-                                'Resolvido no 1º Contato',
-                                'Situação',
-                                'Visita Técnica',
-                                'Procedência'
-                              ].map((e){
-                                return TableCell(
-                                  child: Text(
-                                    e,
-                                    textAlign: TextAlign.center
-                                  )
-                                );
-                              }).toList()
-                            ),
-                            TableRow(
-                              children: [
-                                'Data da Alteração',
-                                'Responsável',
-                                'Descrição da Ocorrência',
-                                'Resolvido no 1º Contato',
-                                'Situação',
-                                'Visita Técnica',
-                                'Procedência'
-                              ].map((e){
-                                return TableCell(
-                                  child: Text(
-                                    e,
-                                    textAlign: TextAlign.center
-                                  )
-                                );
-                              }).toList()
-                            )
-                          ],
+                          children: listWidget,
                         ),
                         Row(
                           children: [

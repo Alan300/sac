@@ -557,6 +557,25 @@ class SpecificScreen extends StatelessWidget {
                                   )
                                 ),
                                 Padding(
+                                  padding: const EdgeInsets.only(top: 10,  right: 10),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.green
+                                    ),
+                                    onPressed: (){}, 
+                                    child: const Padding(
+                                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                                      child: Text(
+                                        'Atualizar',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 18
+                                        ),
+                                      ),
+                                    )
+                                  )
+                                ),
+                                Padding(
                                   padding: const EdgeInsets.only(top: 10),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
