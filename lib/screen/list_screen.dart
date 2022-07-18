@@ -69,7 +69,16 @@ class ListScreen extends StatelessWidget {
                           itemCount: forms.length,
                           itemBuilder: (context, index) {
                             return FormCard(
-                              onTap: () => Get.to(SpecificScreen(forms[index], false)),
+                              onTap: () async {
+                                Map<String,dynamic> data = await Get.to(SpecificScreen(forms[index], false));
+                                if(data.isNotEmpty) {
+                                  forms[index]['occurrence_desc'] = data['occurrence_desc'];
+                                  forms[index]['solve_frist_contact'] = data['solve_frist_contact'];
+                                  forms[index]['situation'] = data['situation'];
+                                  forms[index]['technical_visit'] = data['technical_visit'];
+                                  forms[index]['origin'] = data['origin'];
+                                }
+                              },
                               title: [forms[index]['purchase_date'],forms[index]['invoice'],forms[index]['product']],
                             );
                           }

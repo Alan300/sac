@@ -211,41 +211,40 @@ class FormController extends GetxController {
         'destiny_email': emailDestiny 
       };
       final  db = MysqlUtils(settings: DataBase.settings);
-      await db.insert(
+      int value = await db.insert(
         table: 'form', 
         insertData: obj
-      ).then((value) async {
-        await db.insert(
-          table: 'log_form', 
-          insertData: {
-            'protocol': value,
-            'date_change': obj['opening_date'],
-            'user_name': obj['user_name'] ,
-            'occurrence_desc': obj['occurrence_desc'] ,
-            'solve_frist_contact': obj['solve_frist_contact']  ,
-            'situation': obj['situation']  ,
-            'technical_visit': obj['technical_visit']  , 
-            'origin': obj['origin']  
-          }
-        );
-        obj['protocol'] = value;
-        await Get.offAll(SpecificScreen(obj, true));
-        Get.defaultDialog(
-          title: 'Sucesso',
-          middleText: 'Ocorrência Cadastrada.\nProtocolo: $value',
-          confirm: ElevatedButton(
-            onPressed: (){
-              Get.back();
-            }, 
-            child: const Text('Ok')
-          ),
-        );
-      });
+      );
+      obj['protocol'] = value;
+      await db.insert(
+        table: 'log_form', 
+        insertData: {
+          'protocol': value,
+          'date_change': obj['opening_date'],
+          'user_name': obj['user_name'] ,
+          'occurrence_desc': obj['occurrence_desc'] ,
+          'solve_frist_contact': obj['solve_frist_contact']  ,
+          'situation': obj['situation']  ,
+          'technical_visit': obj['technical_visit']  , 
+          'origin': obj['origin']  
+        }
+      );
+      Get.offAll(SpecificScreen(obj, true));
+      Get.defaultDialog(
+        title: 'Sucesso',
+        middleText: 'Ocorrência Cadastrada.\nProtocolo: $value',
+        confirm: ElevatedButton(
+          onPressed: (){
+            Get.back();
+          }, 
+          child: const Text('Ok')
+        ),
+      );
       db.close();
     } else {
       isCheck.value = true;
+      loading.value = false;
     }
-    loading.value = false;
   }
 
   void cancel() async {

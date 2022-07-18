@@ -7,6 +7,7 @@ class LogScreen extends StatelessWidget {
   final List listLog;
   final List<TableRow> listWidget = [];
   LogScreen(this.listLog, {Key? key}) : super(key: key) {
+
     listWidget.add(
       TableRow(
         children: [
@@ -81,8 +82,6 @@ class LogScreen extends StatelessWidget {
       listWidget.add(row);
     }
   }
-  
-  
   
   @override
   Widget build(BuildContext context) {

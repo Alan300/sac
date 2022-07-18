@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../screen/home_screen.dart';
 import 'package:get/get.dart';
+import '../context/data_context.dart';
 import '../controller/specific_controller.dart';
 
 
@@ -10,6 +10,15 @@ class SpecificScreen extends StatelessWidget {
   final bool newForm;
   SpecificScreen(this.form, this.newForm,{Key? key}) : super(key: key);
   final controller = SpecificController();
+  final ctxt = Get.find<DataContext>();
+
+  void updateForm(data) {
+    form['occurrence_desc'] = data['occurrence_desc'];
+    form['solve_frist_contact'] = data['solve_frist_contact'];
+    form['situation'] = data['situation'];
+    form['technical_visit'] = data['technical_visit'];
+    form['origin'] = data['origin'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +36,6 @@ class SpecificScreen extends StatelessWidget {
     TextEditingController origemDaCompra = TextEditingController();
     TextEditingController representante = TextEditingController();
     TextEditingController tipoDaOcorrencia = TextEditingController();
-    TextEditingController descricaoDaOcorrencia = TextEditingController();
-    TextEditingController resolvidono1 = TextEditingController();
-    TextEditingController situacao = TextEditingController();
-    TextEditingController visitaTecnica = TextEditingController();
-    TextEditingController procedencia = TextEditingController();
     TextEditingController destino = TextEditingController();
 
     tipoCliente.text = form['client_type'];
@@ -48,11 +52,11 @@ class SpecificScreen extends StatelessWidget {
     origemDaCompra.text = form['purchase_origin'];
     representante.text = form['representative'];
     tipoDaOcorrencia.text = form['occurrence_type'];
-    descricaoDaOcorrencia.text = form['occurrence_desc'];
-    resolvidono1.text = form['solve_frist_contact'];
-    situacao.text = form['situation'];
-    visitaTecnica.text = form['technical_visit'];
-    procedencia.text = form['origin'];
+    controller.descOcorrencia.text = form['occurrence_desc'];
+    controller.setResolvidono1(form['solve_frist_contact']);
+    controller.setSitaucao(form['situation']);
+    controller.setVisitaTecnica(form['technical_visit']);
+    controller.setProcedencia(form['origin']);
     destino.text = form['destiny_name'];
     
     return Scaffold(
@@ -84,12 +88,12 @@ class SpecificScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.only(top: 10, bottom: 20),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10, bottom: 20),
                               child: Text(
-                                'Formulário',
+                                'Ocorrência n°${form['protocol']}',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 35,
                                   fontWeight: FontWeight.w700,
                                   color: Color(0xff17a2d0)
@@ -369,8 +373,9 @@ class SpecificScreen extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                                     child: TextField(
-                                      readOnly: true,
-                                      controller: descricaoDaOcorrencia,
+                                      readOnly: newForm,
+                                      onChanged: (_) => controller.checkIsChanged(form),
+                                      controller: controller.descOcorrencia,
                                       style: const TextStyle(
                                         fontSize: 18
                                       ),
@@ -383,6 +388,7 @@ class SpecificScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
+                            newForm ?
                             Row(
                               children: [
                                 //Resolvido 1
@@ -392,7 +398,7 @@ class SpecificScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                                     child: TextField(
                                       readOnly: true,
-                                      controller: resolvidono1,
+                                      controller: TextEditingController(text: form['solve_frist_contact']),
                                       style: const TextStyle(
                                         fontSize: 18
                                       ),
@@ -410,7 +416,7 @@ class SpecificScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(10),
                                     child: TextField(
                                       readOnly: true,
-                                      controller: situacao,
+                                      controller: TextEditingController(text: form['situation']),
                                       style: const TextStyle(
                                         fontSize: 18
                                       ),
@@ -428,14 +434,119 @@ class SpecificScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                                     child: TextField(
                                       readOnly: true,
-                                      controller: visitaTecnica,
+                                      controller: TextEditingController(text: form['technical_visit']),
                                       style: const TextStyle(
                                         fontSize: 18
                                       ),
                                       decoration: const InputDecoration(  
                                         border: OutlineInputBorder(),
-                                        labelText: 'Visita Técnica?'
+                                        labelText: 'Visita Técnica'
                                       ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                            :
+                            Row(
+                              children: [
+                                //Resolvido 1
+                                Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                    child: DropdownButtonFormField<String>(
+                                      value: controller.resolvidono1.value,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Resolvido no 1º Contato?',
+                                        labelStyle: TextStyle(
+                                          fontSize: 18
+                                        ),
+                                      ),
+                                      isExpanded: true,
+                                      onChanged: (e) {
+                                        controller.setResolvidono1(e);
+                                        controller.checkIsChanged(form);
+                                      },
+                                      items: const [
+                                        DropdownMenuItem<String>(
+                                          value: 'Sim',
+                                          child: Text('Sim'),
+                                        ),
+                                        DropdownMenuItem<String>(
+                                          value: 'Não',
+                                          child: Text('Não'),
+                                        )
+                                      ]
+                                    ),
+                                  ),
+                                ),
+                                //Situação
+                                Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: DropdownButtonFormField<String>(
+                                      value: controller.sitaucao.value,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Situação',
+                                        labelStyle: TextStyle(
+                                          fontSize: 18
+                                        )
+                                      ),
+                                      isExpanded: true,
+                                      onChanged: (e) { 
+                                        controller.setSitaucao(e);
+                                        controller.checkIsChanged(form);
+                                      },
+                                      items: const [
+                                        DropdownMenuItem<String>(
+                                          value: 'Andamento',
+                                          child: Text('Andamento'),
+                                        ),
+                                        DropdownMenuItem<String>(
+                                          value: 'Follow-up',
+                                          child: Text('Follow-up'),
+                                        ),
+                                        DropdownMenuItem<String>(
+                                          value: 'Finalizado',
+                                          child: Text('Finalizado'),
+                                        )
+                                      ]
+                                    ),
+                                  ),
+                                ),
+                                //Visita Tecnica
+                                Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                                    child: DropdownButtonFormField<String>(
+                                      value: controller.visitaTecnica.value,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Visita Técnica',
+                                        labelStyle: TextStyle(
+                                          fontSize: 18
+                                        )
+                                      ),
+                                      isExpanded: true,
+                                      onChanged: (e) {
+                                        controller.setVisitaTecnica(e);
+                                        controller.checkIsChanged(form);
+                                      },
+                                      items: const [
+                                        DropdownMenuItem<String>(
+                                          value: 'Sim',
+                                          child: Text('Sim'),
+                                        ),
+                                        DropdownMenuItem<String>(
+                                          value: 'Não',
+                                          child: Text('Não'),
+                                        )
+                                      ]
                                     ),
                                   ),
                                 ),
@@ -444,13 +555,14 @@ class SpecificScreen extends StatelessWidget {
                             Row(
                               children: [
                                 //Procedência
+                                newForm ?
                                 Flexible(
                                   flex: 1,
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
                                     child: TextField(
                                       readOnly: true,
-                                      controller: procedencia,
+                                      controller: TextEditingController(text: form['origin']),
                                       style: const TextStyle(
                                         fontSize: 18
                                       ),
@@ -458,6 +570,38 @@ class SpecificScreen extends StatelessWidget {
                                         border: OutlineInputBorder(),
                                         labelText: 'Procedência'
                                       ),
+                                    ),
+                                  ),
+                                )
+                                :
+                                Flexible(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
+                                    child: DropdownButtonFormField<String>(
+                                      value: controller.procedencia.value,
+                                      decoration: const InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Procedência',
+                                        labelStyle: TextStyle(
+                                          fontSize: 18 
+                                        )
+                                      ),
+                                      isExpanded: true,
+                                      onChanged: (e) {
+                                        controller.setProcedencia(e);
+                                        controller.checkIsChanged(form);
+                                      },
+                                      items: const [
+                                        DropdownMenuItem<String>(
+                                          value: 'Procedente',
+                                          child: Text('Procedente'),
+                                        ),
+                                        DropdownMenuItem<String>(
+                                          value: 'Improcedente',
+                                          child: Text('Improcedente'),
+                                        )
+                                      ]
                                     ),
                                   ),
                                 ),
@@ -500,7 +644,7 @@ class SpecificScreen extends StatelessWidget {
                                   padding: const EdgeInsets.only(top: 10,  right: 10),
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      var texto = 'Protocol: ${form['protocol']}\n';
+                                      var texto = 'Protocolo: ${form['protocol']}\n';
                                       texto += 'Responsável Pelo Cadastro: ${form['user_name']}\n';
                                       texto += 'Tipo de Cliente: ${tipoCliente.text}\n';
                                       texto += "CNPJ/CPF: ${idCliente.text}\n";
@@ -518,9 +662,11 @@ class SpecificScreen extends StatelessWidget {
                                         texto += "Representante: ${representante.text}\n";
                                       }
                                       texto += "Tipo da Ocorrência: ${tipoDaOcorrencia.text}\n";
-                                      texto += "Descrição da Ocorrência: ${descricaoDaOcorrencia.text}\n";
-                                      texto += "Resolvido no 1º Contato: ${resolvidono1.text}\n";
-                                      texto += "Situação: ${situacao.text}\n";
+                                      texto += "Descrição da Ocorrência: ${form['occurrence_desc']}\n";
+                                      texto += "Resolvido no 1º Contato: ${form['solve_frist_contact']}\n";
+                                      texto += "Situação: ${form['situation']}\n";
+                                      texto += "Visita Técnica: ${form['technical_visit']}\n";
+                                      texto += "Procedência: ${form['origin']}\n";
                                       texto += "Destino do Atendimento: ${destino.text}";
                                       Clipboard.setData(
                                         ClipboardData(
@@ -540,6 +686,9 @@ class SpecificScreen extends StatelessWidget {
                                     )
                                   )
                                 ),
+                                newForm ?
+                                const SizedBox.shrink() 
+                                : 
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10,  right: 10),
                                   child: ElevatedButton(
@@ -556,13 +705,16 @@ class SpecificScreen extends StatelessWidget {
                                     )
                                   )
                                 ),
+                                newForm ?
+                                const SizedBox.shrink() 
+                                : 
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10,  right: 10),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.green
                                     ),
-                                    onPressed: (){}, 
+                                    onPressed: () => controller.updateForm(int.parse(form['protocol'].toString()), ctxt.user, updateForm), 
                                     child: const Padding(
                                       padding: EdgeInsets.only(top: 10, bottom: 10),
                                       child: Text(
@@ -581,7 +733,7 @@ class SpecificScreen extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.red
                                     ),
-                                    onPressed: () => newForm ? Get.offAll(HomeScreen()): Get.back(), 
+                                    onPressed: () => controller.back(newForm), 
                                     child: const Padding(
                                       padding: EdgeInsets.only(top: 10, bottom: 10),
                                       child: Text(
