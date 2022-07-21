@@ -37,7 +37,7 @@ class LogScreen extends StatelessWidget {
         children: [
           TableCell(
             child: Text(
-              DateFormat('dd/MM/yyyy - hh:mm').format(DateTime.parse(i['date_change'])),
+              DateFormat('dd/MM/yyyy - HH:mm').format(DateTime.parse(i['date_change'])),
               textAlign: TextAlign.center
             )
           ),

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'bind.dart';
-import 'screen/login_screen.dart';
-
-const apiKey = 'AIzaSyBGhtdS1SVnhME-Lqg6RfgGba64hEbj5cw';
-const projectId = 'assa-abloy-requerimentos';
+import 'screen/Login_screen.dart';
 
 void main() {
   Bind().dependencies();

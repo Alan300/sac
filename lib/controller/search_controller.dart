@@ -7,18 +7,31 @@ import '../screen/list_screen.dart';
 class SearchController extends GetxController{
 
   var loading = false.obs;
-  var search = TextEditingController();
-  var searchError = ''.obs;
+  var idClient = TextEditingController();
+  var idClientError = ''.obs;
+  var numeroProtocolo = TextEditingController();
+  var numeroProtocoloError = ''.obs;
 
-  void resetSearchError() => searchError.value = '';
+  void resetIdClientError() => idClientError.value = '';
+  void resetNumeroProtocolError() => numeroProtocoloError.value = '';
 
   void searchForms() async{
-    if(search.text.length != 14 && search.text.length != 18) {
-      searchError.value = 'Digite um cpf/cnpj válido.';
-    } else {
+    if(numeroProtocolo.text.isEmpty && idClient.text.isEmpty) {
+      numeroProtocoloError.value = 'Digite um número de protocolo válido';
+      idClientError.value = 'Digite um cpf/cnpj válido.';
+    } else if(numeroProtocolo.text.isEmpty && idClient.text.length != 14 && idClient.text.length != 18) {
+      idClientError.value = 'Digite um cpf/cnpj válido.';
+    } 
+    else {
       loading.value = true;
       final db = MysqlUtils(settings: DataBase.settings);
-      var result = await db.query("select  * from form where client_id = '${search.text}'");
+      String query;
+      if(numeroProtocolo.text.isNotEmpty) {
+        query = "select  * from form where protocol = '${numeroProtocolo.text}'";
+      } else {
+        query = "select  * from form where client_id = '${idClient.text}'";
+      }
+      var result = await db.query(query);
       db.close();
       if(result.rows.isEmpty) {
         Get.defaultDialog(
@@ -33,8 +46,8 @@ class SearchController extends GetxController{
         );
       } else {
         await Get.to(ListScreen(result.rows));
-
-        search.text = '';
+        numeroProtocolo.text = '';
+        idClient.text = '';
       }
       loading.value = false;
     }

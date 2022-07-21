@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mask/mask.dart';
 import '../controller/search_controller.dart';
@@ -61,8 +62,30 @@ class SearchScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 10, bottom: 10),
                               child: TextField(
                                 onSubmitted: (_) => controller.searchForms(),
-                                onTap: () => controller.resetSearchError(),
-                                controller: controller.search,
+                                onTap: () => controller.resetNumeroProtocolError(),
+                                controller: controller.numeroProtocolo,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                style: const TextStyle(
+                                  fontSize: 18
+                                ),
+                                decoration: InputDecoration(  
+                                  border: const OutlineInputBorder(),
+                                  labelText: 'N° de Protocolo',
+                                  prefixIcon: const Icon(
+                                    Icons.format_list_numbered
+                                  ),
+                                  errorText: controller.numeroProtocoloError.value == '' ? null : controller.numeroProtocoloError.value
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10, bottom: 10),
+                              child: TextField(
+                                onSubmitted: (_) => controller.searchForms(),
+                                onTap: () => controller.resetIdClientError(),
+                                controller: controller.idClient,
                                 inputFormatters: [
                                   Mask.cpfOrCnpj()
                                 ],
@@ -75,7 +98,7 @@ class SearchScreen extends StatelessWidget {
                                   prefixIcon: const Icon(
                                     Icons.search
                                   ),
-                                  errorText: controller.searchError.value == '' ? null : controller.searchError.value
+                                  errorText: controller.idClientError.value == '' ? null : controller.idClientError.value
                                 ),
                               ),
                             ),
