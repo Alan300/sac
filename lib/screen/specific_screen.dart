@@ -35,6 +35,7 @@ class SpecificScreen extends StatelessWidget {
     TextEditingController notaFiscal = TextEditingController();
     TextEditingController origemDaCompra = TextEditingController();
     TextEditingController representante = TextEditingController();
+    TextEditingController origemDaOcorrencia = TextEditingController();
     TextEditingController tipoDaOcorrencia = TextEditingController();
     TextEditingController destino = TextEditingController();
 
@@ -51,6 +52,7 @@ class SpecificScreen extends StatelessWidget {
     notaFiscal.text = form['invoice'];
     origemDaCompra.text = form['purchase_origin'];
     representante.text = form['representative'];
+    origemDaOcorrencia.text = form['occurrence_origin'] ?? 'Não informado';
     tipoDaOcorrencia.text = form['occurrence_type'];
     controller.descOcorrencia.text = form['occurrence_desc'];
     controller.setResolvidono1(form['solve_frist_contact']);
@@ -345,6 +347,23 @@ class SpecificScreen extends StatelessWidget {
                                   )
                                 )
                                 : const SizedBox.shrink(),
+                                //Origem Ocorrencia
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                                    child: TextField(
+                                      readOnly: true,
+                                      controller: origemDaOcorrencia,
+                                      style: const TextStyle(
+                                        fontSize: 18
+                                      ),
+                                      decoration: const InputDecoration(  
+                                        border: OutlineInputBorder(),
+                                        labelText: 'Origem da Ocorrência'
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             Row(

@@ -36,6 +36,7 @@ class LoginController extends GetxController{
         final clientType = await db.query('select * from client_type');
         final brand = await db.query('select * from brand');
         final purchaseOrigin = await db.query('select * from purchase_origin');
+        final occurrenceOrigin = await db.query('select * from occurrence_origin');
         final occurrenceType = await db.query('select * from occurrence_type');
         final destiny = await db.query('select * from destiny');
         setData(
@@ -44,6 +45,7 @@ class LoginController extends GetxController{
           clientType.rows.map<String>((e) => e['descr'].toString()).toList(),
           brand.rows.map<String>((e) => e['name'].toString()).toList(),
           purchaseOrigin.rows.map<String>((e) => e['name'].toString()).toList(),
+          occurrenceOrigin.rows.map<String>((e) => e['name'].toString()).toList(),
           occurrenceType.rows.map<String>((e) => e['name'].toString()).toList(),
           destiny.rows.map<Map>((e) => {
             'name': e['name'].toString(),

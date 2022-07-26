@@ -375,6 +375,33 @@ class FormScreen extends StatelessWidget {
                                   )
                                 )
                                 : const SizedBox.shrink(),
+                                //Origem Ocorrencia
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                                    child: DropdownSearch<String>(
+                                        popupProps: const PopupProps.menu(
+                                            showSelectedItems: true,
+                                            showSearchBox: true,
+                                        ),
+                                        dropdownDecoratorProps : DropDownDecoratorProps(
+                                          dropdownSearchDecoration: InputDecoration (
+                                            border: const OutlineInputBorder(),
+                                            labelText: 'Origem da Ocorrência',
+                                            errorText: controller.origemOcorrenciaError.value == '' ? null : controller.origemOcorrenciaError.value,
+                                            labelStyle: const TextStyle(
+                                              fontSize: 18
+                                            )
+                                          )
+                                        ),
+                                        items: ctxt.origemOcorrencia,
+                                        onChanged: (e) {
+                                          controller.setOrigemOcorrencia(e);
+                                          controller.resetOrigemOcorrenciaError();
+                                        },
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),    
                             Row(

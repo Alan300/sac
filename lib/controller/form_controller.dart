@@ -23,6 +23,7 @@ class FormController extends GetxController {
   var notaFiscal =TextEditingController();
   var origemDaCompra = ''.obs;
   var representante = TextEditingController();
+  var origemOcorrencia = ''.obs;
   var tipoOcorrencia = ''.obs;
   var descOcorrencia =TextEditingController();
   var resolvidono1 = ''.obs;
@@ -42,9 +43,9 @@ class FormController extends GetxController {
   var marcaError = ''.obs;
   var produtoError = ''.obs;
   var dataDaCompraError = ''.obs;
-
   var notaFiscalError = ''.obs;
   var origemDaCompraError = ''.obs;
+  var origemOcorrenciaError = ''.obs;
   var tipoOcorrenciaError = ''.obs;
   var descOcorrenciaError = ''.obs;
   var resolvidono1Error = ''.obs;
@@ -57,6 +58,7 @@ class FormController extends GetxController {
   void setTipoCliente(String? value) => tipoCliente.value = value??'';
   void setMarca(String? value) => marca.value = value??'';
   void setOrigemDaCompra(String? value) => origemDaCompra.value = value??'';
+  void setOrigemOcorrencia(String? value) => origemOcorrencia.value = value??'';
   void setTipoOcorrencia(String? value) => tipoOcorrencia.value = value??'';
   void setResolvidono1(String? value) => resolvidono1.value = value??'';
   void setSitaucao(String? value) => sitaucao.value = value??'';
@@ -76,6 +78,7 @@ class FormController extends GetxController {
   void resetDataDaCompraError()=> dataDaCompraError.value = '';
   void resetNotaFiscalError() => notaFiscalError.value = '';
   void resetOrigemDaCompraError() => origemDaCompraError.value = '';
+  void resetOrigemOcorrenciaError() => origemOcorrenciaError.value = '';
   void resetTipoOcorrenciaError() => tipoOcorrenciaError.value = '';
   void resetDescOcorrenciaError() => descOcorrenciaError.value = '';
   void resetResolvidono1Error() => resolvidono1Error.value = '';
@@ -147,6 +150,11 @@ class FormController extends GetxController {
       isCheck.value = false;
     }
 
+    if(origemOcorrencia.value == '') {
+      origemOcorrenciaError.value = 'Selecione a origem da ocorrência.';
+      isCheck.value = false;
+    }
+
     if(tipoOcorrencia.value == '') {
       tipoOcorrenciaError.value = 'Selecione o tipo da ocorrência.';
       isCheck.value = false;
@@ -201,6 +209,7 @@ class FormController extends GetxController {
         'invoice': notaFiscal.text,
         'purchase_origin':origemDaCompra.value,
         'representative':representante.text,
+        'occurrence_origin': origemOcorrencia.value,
         'occurrence_type': tipoOcorrencia.value,
         'occurrence_desc':descOcorrencia.text,
         'solve_frist_contact':resolvidono1.value ,

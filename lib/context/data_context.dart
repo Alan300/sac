@@ -9,6 +9,7 @@ class DataContext extends GetxController {
   var marca = <String>[];
   var origemDaCompra = <String>[];
   var representante = <String>[];
+  var origemOcorrencia = <String>[];
   var tipoOcorrencia = <String>[];
   var destinoAtendimento = <Map>[];
 
@@ -17,6 +18,7 @@ class DataContext extends GetxController {
     List<String> tipoCliente, 
     List<String> marca, 
     List<String> origemDaCompra,
+    List<String> origemOcorrencia,
     List<String> tipoOcorrencia,
     List<Map> destinoAtendimento
   ) {
@@ -24,6 +26,7 @@ class DataContext extends GetxController {
     this.tipoCliente.addAll(tipoCliente);
     this.marca.addAll(marca);
     this.origemDaCompra.addAll(origemDaCompra);
+    this.origemOcorrencia.addAll(origemOcorrencia);
     this.tipoOcorrencia.addAll(tipoOcorrencia);
     this.destinoAtendimento.addAll(destinoAtendimento);
   }
@@ -37,6 +40,7 @@ class DataContext extends GetxController {
   marca = <String>[];
   origemDaCompra = <String>[];
   representante = <String>[];
+  origemOcorrencia = <String> [];
   tipoOcorrencia = <String>[];
   destinoAtendimento = <Map>[];
   }
